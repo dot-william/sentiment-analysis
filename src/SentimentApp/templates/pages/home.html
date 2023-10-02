@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %} 
+
+ <!-- Card Container -->
+ <div class="flex flex-col md:flex-row bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-screen-lg mx-auto">
+    <!-- Left Side for User Input -->
+    <div class="flex-1 p-6">
+      <h2 class="text-lg font-semibold">Enter your text here</h2>
+      <input type="text" class="mt-4 p-2 w-full border rounded-md">
+      <!-- Classify Text Button -->
+      <button class="mt-4 bg-blue-500 text-white rounded-md px-4 py-2">
+        Classify Text
+      </button>
+    </div>
+    <!-- Divider -->
+    <div class="border-r md:border-r md:border-t-0"></div>
+    <!-- Right Side for List of Results -->
+    <div class="flex-1 p-6">
+      <h2 class="text-lg font-semibold">Results</h2>
+      <ul class="divide-y divide-gray-300 mt-4">
+        <li class="py-2">Item 1</li>
+        <li class="py-2">Item 2</li>
+        <li class="py-2">Item 3</li>
+      </ul>
+    </div>
+  </div>
+
+{% endblock %}
