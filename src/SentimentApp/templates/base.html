@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,7 @@
     <title>Sentiment Analysis Home</title>
     {% include 'head/css.html' %}
 </head>
-<body class="bg-gray-200 h-screen flex justify-center items-center">
+<body class="bg-gradient-to-r from-cyan-500 to-blue-500 h-screen flex justify-center items-center">
     <div>
         {% block content %} {% endblock %}
     </div>
