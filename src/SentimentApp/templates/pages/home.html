@@ -27,10 +27,22 @@
           <!-- Loop through the predictions dictionary -->
           {% if predictions %}
             {% for class, prediction in predictions %}
+              {%if class == 'Negative'%}
               <tr>
-                <td class="py-2">{{ class }}</td>
+                <td class="py-2 text-red-600">{{ class }}</td>
                 <td class="py-2">{{ prediction }}</td>
               </tr>
+              {% elif class == "Neutral"%}
+              <tr>
+                <td class="py-2 yellow-600">{{ class }}</td>
+                <td class="py-2">{{ prediction }}</td>
+              </tr>
+              {% else %}
+              <tr>
+                <td class="py-2 text-green-600">{{ class }}</td>
+                <td class="py-2">{{ prediction }}</td>
+              </tr>
+              {%endif%}
             {% endfor %}
           {% else %}
             <tr>
