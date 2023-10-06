@@ -2,7 +2,12 @@
 module.exports = {
   content: ["./**/*.{html,js}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        nunito: ['Nunito'],
+        comfortaa: ['Comfortaa'],
+      }
+    },
   },
   plugins: [],
 }

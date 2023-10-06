@@ -23,7 +23,7 @@ def predict(request):
             tfidf = MLConfig().vectorizer.transform([preprocessed_text])
             prediction = MLConfig().model.predict(tfidf)
             estimates = MLConfig().model.predict_proba(tfidf)
-            print("HELLLLLLLOOOOOOOOO", type(estimates))
+            # print("HELLLLLLLOOOOOOOOO", type(estimates))
             estimates = estimates.tolist()[0]
             print(estimates[0])
             prediction_probas = [f"{prob*100:.2f}%" for prob in estimates]

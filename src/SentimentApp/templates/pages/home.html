@@ -1,57 +1,61 @@
 {% extends "base.html" %}
+{% load static %}
 {% load widget_tweaks %}
-{% block content %} 
 
- <!-- Card Container -->
- <div class="flex flex-col md:flex-row bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-screen-lg mx-auto">
-    <!-- Left Side for User Input -->
-    <div class="flex-1 p-6">
-      <h2 class="text-md font-semibold">Enter your text here</h2>
-      <form action="{% url 'predict'%}" method="post">
+{% block content %}
+<div class="min-h-screen mt-8 flex flex-col items-center justify-center overflow-y-auto py-4">
+    <img src="{% static 'img/sentiment.png' %}" alt="Neutral Sentiment" class="w-24 h-24 mb-2 mx-auto">
+    <div class="text-6xl font-bold font-comfortaa mb-8">Sentiment Analysis</div>
+    <div class="text-md mb-12">Enter a sentence to gauge its sentiment:</div>
+    <form action="{% url 'predict'%}" method="post">
         {% csrf_token %}
-        {{ form.text|add_class:"mt-4 p-2 w-full border rounded-md" }}
-        <!-- Classify Text Button -->
-        <button type="submit" class="mt-4 bg-blue-500 text-white rounded-md px-4 py-2">
-          Classify Text
-        </button>
-      </form>
-    </div>
-    <!-- Divider -->
-    <div class="border-r md:border-r md:border-t-0"></div>
-    <!-- Right Side for List of Results -->
-    <div class="flex-1 p-6">
-      <h2 class="text-md font-semibold">Results</h2>
-      <!-- Define the table -->
-      <table class="min-w-full divide-y divide-gray-300 mt-4">
-        <tbody>
-          <!-- Loop through the predictions dictionary -->
-          {% if predictions %}
-            {% for class, prediction in predictions %}
-              {%if class == 'Negative'%}
-              <tr>
-                <td class="py-2 text-red-600">{{ class }}</td>
-                <td class="py-2">{{ prediction }}</td>
-              </tr>
-              {% elif class == "Neutral"%}
-              <tr>
-                <td class="py-2 yellow-600">{{ class }}</td>
-                <td class="py-2">{{ prediction }}</td>
-              </tr>
-              {% else %}
-              <tr>
-                <td class="py-2 text-green-600">{{ class }}</td>
-                <td class="py-2">{{ prediction }}</td>
-              </tr>
-              {%endif%}
+        <div class="mb-4 ">
+            {% render_field form.text class="p-2 border rounded w-96 h-14" placeholder="e.g. I love you" %}
+        </div>
+        <div class="text-center">
+            <button type="submit" class="font-sans text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Classify Text</button>
+        </div>
+    </form>
+    {% if predictions %}
+    <div class="mt-8">
+        <div class="text-xl text-center font-bold mb-4">Result:</div>
+        <div class="mb-4 text-center">
+            {% if predictions.0.0 == "Negative" %}
+                <img src="{% static 'img/sad.png' %}" alt="Negative Sentiment" class="w-24 h-24 mx-auto">
+                <div class="mt-5 text-red-600">
+                    Negative
+                </div>
+            {% elif predictions.0.0 == "Positive" %}
+                <img src="{% static 'img/happy.png' %}" alt="Positive Sentiment" class="w-24 h-24 mx-auto">
+                <div class="mt-5 text-green-600">
+                    Positive
+                </div>
+            {% elif predictions.0.0 == "Neutral" %}
+                <img src="{% static 'img/neutral-face.png' %}" alt="Neutral Sentiment" class="w-24 h-24 mx-auto">
+                <div class="mt-5 text-yellow-600">
+                    Neutral
+                </div>
+            {% endif %}
+        </div>
+        <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-300">
+        <div>
+            {% for label, prob in predictions %}
+                <div class="flex justify-between mb-2 w-48">
+                    {{ label }}: 
+                    {% if label == "Negative" %}
+                        <span class="text-red-600">{{ prob }}</span>
+                    {% elif label == "Positive" %}
+                        <span class="text-green-600">{{ prob }}</span>
+                    {% elif label == "Neutral" %}
+                        <span class="text-yellow-600">{{ prob }}</span>
+                    {% else %}
+                        {{ prob }}
+                    {% endif %}
+                </div>
             {% endfor %}
-          {% else %}
-            <tr>
-              <td class="py-2" colspan="2">No results yet</td>
-            </tr>
-          {% endif %}
-        </tbody>
-      </table>
+        </div>
     </div>
-  </div>
 
+    {% endif %}
+</div>
 {% endblock %}
