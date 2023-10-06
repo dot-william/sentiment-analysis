@@ -2,6 +2,7 @@
 
 This repository contains a sentiment analysis web application leveraging Natural Language Processing (NLP). It employs the Support Vector Machine (SVM) model to categorize text sentiments as Positive, Neutral, or Negative.
 
+Icons from www.flaticon.com
 
 ## Setup and Run
 
