@@ -7,7 +7,7 @@ This repository contains a sentiment analysis web application leveraging Natural
 
 ### 1. Set Up the Virtual Environment
 After cloning the repository, set up a Python virtual environment to manage the project's dependencies:
-```bash
+```
 python -m venv venv
 ```
 
