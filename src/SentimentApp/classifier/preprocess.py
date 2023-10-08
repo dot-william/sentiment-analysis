@@ -30,13 +30,15 @@ class MLConfig():
         # Convert text to lowercase
         text = text.lower()
 
-        # Replace @, #, links and non-word characters with a space
-        pattern = re.compile(r'(http|https)://[^\s]+|[^\w\s@#]|[@#]|\d+:\d+|\d+(?![a-zA-Z])|_')
+        # Regex pattern to match:
+        # 1. URLs starting with 'http' or 'https'
+        # 2. Characters that aren't word characters, whitespace, '@', or '#'
+        # 3. Mentions (e.g., '@username') and hashtags (e.g., '#topic')
+        # 4. Time patterns (e.g., '12:34')
+        # 5. Numbers not followed by a letter
+        # 6. Underscores
+        pattern = re.compile(r'(http|https)://[^\s]+|[^\w\s@#]|(@\w+|#\w+)|\d+:\d+|\d+(?![a-zA-Z])|_')
         cleaned_text = pattern.sub(' ', text)
-        
-
-        # Remove extra spaces
-        cleaned_text = ' '.join(cleaned_text.split())
         return cleaned_text
 
     def preprocess_text(self, text):
@@ -56,20 +58,20 @@ class MLConfig():
         filtered_words = []
         
         # Remove English Stop Words
-        stop_words = set(stopwords.words('English'))
-
+        stop_words = stopwords.words('English')
+        stop_words.remove("not")
+        stop_words = set(stop_words)
+        
         for word in words:
             if word not in stop_words:
                 filtered_words.append(word)
-        # print("Filtered: ", filtered_words)
-        
+
         # Lemmatize the text for nouns
         lemmatizer = WordNetLemmatizer()
         lemmatized_words = []
         for word in filtered_words:
             lemmatized_word = lemmatizer.lemmatize(word, pos='n')
             lemmatized_words.append(lemmatized_word) 
-        # print("Lemmatized words:", lemmatized_words)
 
         # Lemmatize for verbs
         final_lemmatized_words = []

@@ -8,3 +8,4 @@ joblib
 imblearn
 nltk
 spacy
+seaborn
