@@ -15,8 +15,8 @@ from nltk.stem import WordNetLemmatizer
 warnings.filterwarnings("ignore")
 class MLConfig():
     def __init__(self):
-        self.model = joblib.load(os.path.join(settings.BASE_DIR, "models/SVM_model_ver_1.joblib"))
-        self.vectorizer = joblib.load(os.path.join(settings.BASE_DIR, "models/tfidf_vectorizer_ver_1.joblib"))
+        self.model = joblib.load(os.path.join(settings.BASE_DIR, "models/SVM_model_v2.joblib"))
+        self.vectorizer = joblib.load(os.path.join(settings.BASE_DIR, "models/vectorizer.joblib"))
 
     def clean_text(self, text):
         """
